@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { Outlet, useNavigate, useLocation } from "react-router-dom";
-import ProgressBar from "../../components/progressBar";
 import { useProgress } from "../../components/context/progressContext";
 
 export default function Page1() {

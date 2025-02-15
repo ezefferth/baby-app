@@ -1,7 +1,5 @@
-import React from "react";
 import Puzzle from "./puzzle";
 
-import img from "../../../../public/img1.jpg";
 
 export default function Page6() {
   return (

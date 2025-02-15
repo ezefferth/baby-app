@@ -7,6 +7,7 @@ import Page4 from "../../pages/page4";
 import Page5 from "../../pages/page5";
 import Page6 from "../../pages/page6";
 import Page7 from "../../pages/page7";
+import Page3_1 from "../../pages/Page3.1";
 
 export default function Router() {
   return (
@@ -38,6 +39,10 @@ export default function Router() {
       <Route
         path="/7"
         element={<Page7 />}
+      />
+      <Route
+        path="/3_1"
+        element={<Page3_1 />}
       />
     </Routes>
   );

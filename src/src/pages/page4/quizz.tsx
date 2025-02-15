@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Button, Card, CardContent, Typography } from "@mui/material";
 import { CheckCircleOutline, CancelOutlined } from "@mui/icons-material";
 import { useProgress } from "../../components/context/progressContext";

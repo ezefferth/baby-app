@@ -17,19 +17,43 @@ export default function Puzzle() {
   const [isCompleted, setIsCompleted] = useState(false);
   const imageRef = useRef(new window.Image());
   const navigate = useNavigate();
-  const gridSize = 3; // 🔥 Modifique para 4, 5, etc., para aumentar a dificuldade
+  const gridSize = { rows: 2, cols: 3 }; // 🔥 Define um quebra-cabeça de 2x3 (6 peças)
+  const tolerance = 20; // 🔥 Define a tolerância para considerar a peça encaixada
+  const [stageSize, setStageSize] = useState({ width: 0, height: 0 });
+
+  useEffect(() => {
+    const updateStageSize = () => {
+      const screenHeight = window.innerHeight; // 🖥️ Altura da tela
+      const screenWidth = window.innerWidth; // 🖥️ Largura da tela
+      const aspectRatio = 2 / 3; // 📏 Proporção da imagem
+
+      let width = screenWidth;
+      let height = width * aspectRatio;
+
+      if (height > screenHeight) {
+        height = screenHeight;
+        width = height / aspectRatio;
+      }
+
+      setStageSize({ width, height });
+    };
+
+    updateStageSize();
+    window.addEventListener("resize", updateStageSize); // Atualiza ao redimensionar a tela
+    return () => window.removeEventListener("resize", updateStageSize);
+  }, []);
 
   useEffect(() => {
     const image = new window.Image();
     image.src = puzzleImageSrc;
     image.onload = () => {
-      const pieceWidth = image.width / gridSize;
-      const pieceHeight = image.height / gridSize;
+      const pieceWidth = image.width / gridSize.cols;
+      const pieceHeight = image.height / gridSize.rows;
       const tempPieces: PuzzlePiece[] = [];
 
       // Criar canvas para recortar a imagem
-      for (let row = 0; row < gridSize; row++) {
-        for (let col = 0; col < gridSize; col++) {
+      for (let row = 0; row < gridSize.rows; row++) {
+        for (let col = 0; col < gridSize.cols; col++) {
           const canvas = document.createElement("canvas");
           canvas.width = pieceWidth;
           canvas.height = pieceHeight;
@@ -53,11 +77,11 @@ export default function Puzzle() {
           croppedImage.src = canvas.toDataURL(); // Converte para imagem
 
           tempPieces.push({
-            id: row * gridSize + col,
-            x: Math.random() * 300, // Posição inicial aleatória
-            y: Math.random() * 300,
-            correctX: col * pieceWidth,
-            correctY: row * pieceHeight,
+            id: row * gridSize.cols + col,
+            x: Math.random() * (stageSize.width - pieceWidth),
+            y: Math.random() * (stageSize.height - pieceHeight),
+            correctX: col * (stageSize.width / gridSize.cols),
+            correctY: row * (stageSize.height / gridSize.rows),
             croppedImage,
           });
         }
@@ -65,7 +89,7 @@ export default function Puzzle() {
       setPieces(tempPieces);
       imageRef.current = image;
     };
-  }, []);
+  }, [stageSize]);
 
   const handleDragEnd = (id: number, x: number, y: number) => {
     setPieces((prevPieces) =>
@@ -73,16 +97,18 @@ export default function Puzzle() {
         piece.id === id
           ? {
               ...piece,
-              x: Math.abs(piece.correctX - x) < 10 ? piece.correctX : x,
-              y: Math.abs(piece.correctY - y) < 10 ? piece.correctY : y,
+              x: Math.abs(piece.correctX - x) < tolerance ? piece.correctX : x,
+              y: Math.abs(piece.correctY - y) < tolerance ? piece.correctY : y,
             }
           : piece
       )
     );
 
-    // Verifica se todas as peças estão na posição correta
+    // Verifica se todas as peças estão na posição correta dentro da tolerância
     const completed = pieces.every(
-      (p) => Math.abs(p.x - p.correctX) < 10 && Math.abs(p.y - p.correctY) < 10
+      (p) =>
+        Math.abs(p.x - p.correctX) < tolerance &&
+        Math.abs(p.y - p.correctY) < tolerance
     );
 
     if (completed) {
@@ -91,15 +117,11 @@ export default function Puzzle() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen p-4 bg-gray-100 relative">
-      <h2 className="text-2xl font-semibold text-gray-700 mb-4">
-        Monte o Quebra-Cabeça!
-      </h2>
-
+    <div className="flex flex-col items-center justify-center h-screen bg-gray-100 relative">
       <div className="relative">
         <Stage
-          width={imageRef.current.width}
-          height={imageRef.current.height}
+          width={stageSize.width}
+          height={stageSize.height}
           className="border-2 border-gray-400"
         >
           <Layer>
@@ -109,8 +131,8 @@ export default function Puzzle() {
                 image={piece.croppedImage}
                 x={piece.x}
                 y={piece.y}
-                width={imageRef.current.width / gridSize}
-                height={imageRef.current.height / gridSize}
+                width={stageSize.width / gridSize.cols}
+                height={stageSize.height / gridSize.rows}
                 draggable
                 onDragEnd={(e) =>
                   handleDragEnd(piece.id, e.target.x(), e.target.y())

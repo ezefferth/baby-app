@@ -22,14 +22,14 @@ export default function Page5() {
       return {
         title: "Você pode conhecer melhor a Isabella!",
         message:
-          "Você acertou menos da metade das perguntas. Tente passar mais tempo com a Isa para aprender mais sobre ela!",
+          "Você acertou menos da metade das perguntas. Tente passar mais tempo com a Isa para aprender mais sobre ela! Melhore sua pontuação para desbloquear o próximo desafio!",
         emoji: "🤔",
       };
     } else if (score >= 5 && score <= 7) {
       return {
         title: "Muito bom, mas pode melhorar!",
         message:
-          "Você se saiu bem, mas ainda tem algumas coisinhas que poderia aprender sobre a Isabella! Que tal conversar mais com ela?",
+          "Você se saiu bem, mas ainda tem algumas coisinhas que poderia aprender sobre a Isabella! Que tal conversar mais com ela? Melhore sua pontuação para desbloquear o próximo desafio!",
         emoji: "😊",
       };
     } else {
@@ -80,7 +80,7 @@ export default function Page5() {
               <Button
                 variant="contained"
                 color="primary"
-                onClick={() => navigate("/")}
+                onClick={() => navigate("/4")}
               >
                 Refazer o Quizz
               </Button>

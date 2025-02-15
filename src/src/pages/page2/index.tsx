@@ -18,7 +18,7 @@ export default function Page2() {
       setError("Por favor, preencha seu primeiro e último nome.");
       return;
     }
-    navigate("/3");
+    navigate("/3_1");
   };
 
   return (

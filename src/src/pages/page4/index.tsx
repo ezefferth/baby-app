@@ -1,6 +1,13 @@
+import { useEffect } from "react";
 import Quizz from "./quizz";
+import { useProgress } from "../../components/context/progressContext";
 
 export default function Page4() {
+  const { updateProgress } = useProgress();
+
+  useEffect(() => {
+    updateProgress(3); // Define progresso para 50%
+  }, []);
   return (
     <div>
       <Quizz />
