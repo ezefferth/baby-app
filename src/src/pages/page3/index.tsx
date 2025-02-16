@@ -59,8 +59,8 @@ export default function Page3() {
             labelId="demo-simple-select-standard-label"
             id="demo-simple-select-standard"
           >
-            <MenuItem value="Tio/Tia">Tio/Tia</MenuItem>
-            <MenuItem value="Avô/Avó">Avô/Avó</MenuItem>
+            <MenuItem value="Tio/Tia">Titio/Titia</MenuItem>
+            <MenuItem value="Avô/Avó">Vovô/Vovó</MenuItem>
             <MenuItem value="Primo/Prima">Primo/Prima</MenuItem>
             <MenuItem value="Outro">Outro</MenuItem>
           </Select>

@@ -3,6 +3,7 @@ import Router from "./src/components/router";
 import { ProgressProvider } from "./src/components/context/progressContext";
 import { DataProvider } from "./src/components/context/data";
 import ProgressBar from "./src/components/progressBar";
+import Music from "./src/components/music";
 
 function App() {
   return (
@@ -11,7 +12,8 @@ function App() {
         <ProgressProvider>
           <DataProvider>
             <Router />
-            <ProgressBar/>
+            <Music />
+            <ProgressBar />
           </DataProvider>
         </ProgressProvider>
       </BrowserRouter>

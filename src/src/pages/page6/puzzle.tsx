@@ -1,7 +1,8 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useContext } from "react";
 import { Stage, Layer, Image as KonvaImage } from "react-konva";
 import { useNavigate } from "react-router-dom";
 import puzzleImageSrc from "../../../assets/img1.jpg"; // 🔥 Importa a imagem do assets
+import { DataContext } from "../../components/context/data";
 
 interface PuzzlePiece {
   id: number;
@@ -116,6 +117,8 @@ export default function Puzzle() {
     }
   };
 
+  const { name } = useContext(DataContext);
+
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-gray-100 relative">
       <div className="relative">
@@ -145,7 +148,7 @@ export default function Puzzle() {
         {/* 🔥 Tela de "Parabéns" quando completar o quebra-cabeça */}
         {isCompleted && (
           <div className="absolute inset-0 flex flex-col items-center justify-center bg-black bg-opacity-70 text-white text-center p-6 rounded-lg shadow-lg">
-            <h3 className="text-3xl font-bold">🎉 Parabéns! 🎉</h3>
+            <h3 className="text-3xl font-bold">🎉 Parabéns {name}! 🎉</h3>
             <p className="text-lg mt-2">Você completou o Quebra-Cabeça!</p>
             <button
               className="mt-4 bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded-lg shadow"
