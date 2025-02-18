@@ -26,7 +26,7 @@ export default function Puzzle() {
     const updateStageSize = () => {
       const screenHeight = window.innerHeight; // 🖥️ Altura da tela
       const screenWidth = window.innerWidth; // 🖥️ Largura da tela
-      const aspectRatio = 2 / 3; // 📏 Proporção da imagem
+      const aspectRatio = 2 / 2; // 📏 Proporção da imagem
 
       let width = screenWidth;
       let height = width * aspectRatio;
