@@ -18,7 +18,7 @@ export default function Puzzle() {
   const [isCompleted, setIsCompleted] = useState(false);
   const imageRef = useRef(new window.Image());
   const navigate = useNavigate();
-  const gridSize = { rows: 2, cols: 3 }; // 🔥 Define um quebra-cabeça de 2x3 (6 peças)
+  const gridSize = { rows: 2, cols: 2 }; // 🔥 Define um quebra-cabeça de 2x3 (6 peças)
   const tolerance = 20; // 🔥 Define a tolerância para considerar a peça encaixada
   const [stageSize, setStageSize] = useState({ width: 0, height: 0 });
 
@@ -26,7 +26,7 @@ export default function Puzzle() {
     const updateStageSize = () => {
       const screenHeight = window.innerHeight; // 🖥️ Altura da tela
       const screenWidth = window.innerWidth; // 🖥️ Largura da tela
-      const aspectRatio = 2 / 2; // 📏 Proporção da imagem
+      const aspectRatio = 2 / 3; // 📏 Proporção da imagem
 
       let width = screenWidth;
       let height = width * aspectRatio;
